@@ -1,0 +1,345 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+    overflow: hidden;
+    background: #000000;
+}
+
+
+#game-canvas {
+    display: block;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+/* MENÚ DE PAUSA */
+
+.pause-menu {
+    position: fixed;
+    inset: 0;
+
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s;
+}
+
+
+/* PAUSA ABIERTA */
+
+.pause-menu.pause-menu-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* ========================================
+   MENÚ PRINCIPAL DE PAUSA
+   ======================================== */
+
+.pause-main {
+    width: 691px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 89px;
+}
+
+
+/* TÍTULO */
+
+.pause-title {
+    display: block;
+
+    width: 691px;
+    height: auto;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* BOTONES */
+
+.pause-buttons {
+    width: 385px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+
+.pause-button {
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+.pause-button img {
+    display: block;
+
+    width: 385px;
+    height: auto;
+
+    user-select: none;
+
+    transition: transform 0.15s ease;
+}
+
+
+.pause-button:hover img {
+    transform: scale(1.05);
+}
+
+
+.pause-button:active img {
+    transform: scale(0.97);
+}
+
+
+/* Ocultar menú principal */
+
+.pause-main.pause-main-hidden {
+    display: none;
+}
+
+/* ========================================
+   OPCIONES DE PAUSA
+   ======================================== */
+
+.pause-options {
+    position: relative;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Mostrar opciones */
+
+.pause-options.pause-options-open {
+    display: flex;
+}
+
+
+/* Fondo del panel */
+
+.pause-options-panel-image {
+    display: block;
+
+    width: 900px;
+    height: 400px;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* Contenido encima */
+
+.pause-options-content {
+    position: absolute;
+
+    width: 800px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 40px;
+}
+
+
+/* LOS DOS VOLÚMENES */
+
+.pause-volume-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+
+/* BLOQUE INDIVIDUAL */
+
+.pause-volume-block {
+    width: 390px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+/* TÍTULO */
+
+.pause-volume-title {
+    display: block;
+
+    width: 288px;
+    height: 50px;
+
+    object-fit: contain;
+
+    margin-bottom: 20px;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* ICONO + BARRA */
+
+.pause-volume-row {
+    width: 100%;
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 11px;
+}
+
+
+/* BOTÓN DEL ICONO */
+
+.pause-volume-button {
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+/* ICONO */
+
+.pause-volume-icon {
+    display: block;
+
+    width: 65px;
+    height: 65px;
+
+    object-fit: contain;
+
+    user-select: none;
+
+    transition: transform 0.15s ease;
+}
+
+
+.pause-volume-button:hover .pause-volume-icon {
+    transform: scale(1.08);
+}
+
+
+.pause-volume-button:active .pause-volume-icon {
+    transform: scale(0.95);
+}
+
+
+/* BARRA */
+
+.pause-volume-bar {
+    display: block;
+
+    width: 250px;
+    height: 51px;
+
+    object-fit: contain;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+/* BOTÓN VOLVER */
+
+.pause-back-button {
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+.pause-back-button img {
+    display: block;
+
+    width: 230px;
+    height: auto;
+
+    user-select: none;
+
+    transition: transform 0.15s ease;
+}
+
+
+.pause-back-button:hover img {
+    transform: scale(1.05);
+}
+
+
+.pause-back-button:active img {
+    transform: scale(0.97);
+}

@@ -1,0 +1,1111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+
+    --firefly-color: #e37e2c;
+    --firefly-glow-medium: rgb(237, 192, 42);
+    --firefly-glow-soft: rgba(247, 136, 85, 0.667);
+}
+
+
+/* fondo */
+
+.menu-background {
+    position: fixed;
+    inset: -20px;
+
+    background-image: url("../assets/img/iniciofondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(10px);
+
+    z-index: 0;
+}
+
+
+/* menu principal */
+
+#main-menu {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2;
+}
+
+
+/* Contenedor de todo el menú */
+
+.menu-container {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 63px;
+
+    transform: translateX(-520px);
+}
+
+/* titulo */
+
+.menu-title {
+    display: block;
+
+    width: 790px;
+    max-width: 90vw;
+
+    height: auto;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* botones */
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 16px;
+
+    transform: translateX(-120px);
+}
+
+
+/* Quitamos la apariencia normal del <button> */
+
+.menu-button {
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+/* La imagen ES el botón visual */
+
+.menu-button img {
+    display: block;
+
+    width: 385px;
+    max-width: 60vw;
+
+    height: auto;
+
+    user-select: none;
+
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+}
+
+
+/* Hover */
+
+.menu-button:hover img {
+    transform: scale(1.05);
+}
+
+
+/* Al presionarlo */
+
+.menu-button:active img {
+    transform: scale(0.97);
+}
+
+/* SUBMENU DE DIFICULTAD */
+
+.difficulty-menu {
+    position: absolute;
+
+    left: 850px;
+    top: 240px;
+
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 28px;
+
+    /* Estado oculto */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateX(150px);
+
+    transition:
+        transform 0.45s ease,
+        opacity 0.45s ease,
+        visibility 0.45s;
+}
+
+
+/* Estado visible */
+
+.difficulty-menu.difficulty-menu-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translateX(0);
+}
+
+
+/* Imagen "Escoge un modo de juego" */
+
+.difficulty-title {
+    display: block;
+
+    width: 622px;
+    height: auto;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* Contenedor Normal / Difícil */
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 41px;
+}
+
+
+/* Botones de dificultad */
+
+.difficulty-button {
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+/* Imágenes de los botones */
+
+.difficulty-button img {
+    display: block;
+
+    width: 340px;
+    height: auto;
+
+    user-select: none;
+
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+}
+
+
+.difficulty-button:hover img {
+    transform: scale(1.05);
+}
+
+
+.difficulty-button:active img {
+    transform: scale(0.97);
+}
+
+/* PANEL DE OPCIONES */
+
+.options-menu {
+    position: absolute;
+
+    left: 900px;
+    top: 160px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    /* Estado oculto */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    /* Empieza desplazado hacia la derecha */
+    transform: translateX(150px);
+
+    transition:
+        transform 0.45s ease,
+        opacity 0.45s ease,
+        visibility 0.45s;
+}
+
+
+/* Estado visible */
+
+.options-menu.options-menu-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translateX(0);
+}
+
+
+/* Imagen del panel */
+
+.options-panel-image {
+    display: block;
+
+    width: 900px;
+    max-width: 80vw;
+
+    height: 500px;
+
+    user-select: none;
+}
+
+/* CONTENIDO INTERNO DEL PANEL DE OPCIONES */
+
+.options-menu {
+    position: absolute;
+}
+
+
+/* El panel queda detrás */
+
+.options-panel-image {
+    position: relative;
+
+    z-index: 0;
+}
+
+
+/* Contenido encima del panel */
+
+.options-content {
+    position: absolute;
+
+    z-index: 1;
+
+    width: 392px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 81px;
+
+    top: 105px;
+    left: 260px;
+
+
+    /* Estado normal */
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateX(0);
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease,
+        visibility 0s linear 0s;
+}
+
+/* CONTENEDOR DE LOS DOS VOLÚMENES */
+
+.options-volume-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+
+/* BLOQUE INDIVIDUAL DE VOLUMEN */
+
+.option-volume-block {
+    width: 390px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.volume-icon-button {
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+.volume-icon-button .option-icon {
+    transition: transform 0.15s ease;
+}
+
+
+.volume-icon-button:hover .option-icon {
+    transform: scale(1.08);
+}
+
+
+.volume-icon-button:active .option-icon {
+    transform: scale(0.95);
+}
+
+
+/* TÍTULO */
+
+.option-title-image {
+    display: block;
+
+    width: 288px;
+    height: 50px;
+
+    object-fit: contain;
+
+    margin: 0;
+    margin-bottom: 20px;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* FILA: ICONO + BARRA */
+
+.option-volume-row {
+    width: 100%;
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 11px;
+}
+
+
+/* ICONO */
+
+.option-icon {
+    display: block;
+
+    width: 65px;
+    height: 65px;
+
+    object-fit: contain;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* BARRA */
+
+.option-slider-image {
+    display: block;
+
+    width: 250px;
+    height: 51px;
+
+    object-fit: contain;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+/* CONTENEDOR DE PUNTUACIONES Y PERFIL */
+
+.options-links-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 45px;
+}
+
+
+/* PUNTUACIONES Y PERFIL */
+
+.option-link-button {
+    width: 350px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+.option-link-icon {
+    display: block;
+
+    width: 55px;
+    height: auto;
+
+    user-select: none;
+}
+
+
+.option-link-text {
+    display: block;
+
+    width: 238px;
+    height: auto;
+
+    user-select: none;
+
+    transition: transform 0.15s ease;
+}
+
+
+.option-link-button:hover .option-link-text {
+    transform: scale(1.05);
+}
+
+
+.option-link-button:active .option-link-text {
+    transform: scale(0.97);
+}
+
+
+/* PANEL DE SERVIDOR */
+
+.server-menu {
+    position: absolute;
+
+    left: 880px;
+    top: 90px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    /* Estado oculto */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    /* Empieza desplazado hacia la derecha */
+    transform: translateX(150px);
+
+    transition:
+        transform 0.45s ease,
+        opacity 0.45s ease,
+        visibility 0.45s;
+}
+
+
+/* Estado visible */
+
+.server-menu.server-menu-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translateX(0);
+}
+
+
+/* Imagen del panel */
+
+.server-panel-image {
+    display: block;
+
+    width: 901px;
+    max-width: 80vw;
+
+    height: auto;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+/* PANEL INTERNO DE PUNTUACIONES */
+
+.scores-content {
+    position: absolute;
+
+    z-index: 1;
+
+    width: 456px;
+
+    top: 100px;
+    left: 222px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 25px;
+
+
+    /* Oculto inicialmente */
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+
+    /* Empieza desplazado hacia la derecha */
+
+    transform: translateX(70px);
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease,
+        visibility 0s linear 0.4s;
+}
+
+
+/* Cuando puntuaciones está abierto */
+
+.scores-content.scores-content-open {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transform: translateX(0);
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease,
+        visibility 0s linear 0s;
+}
+
+
+/* Imagen de bienvenida */
+
+.scores-welcome-image {
+    display: block;
+
+    width: 456px;
+    height: 126px;
+
+    object-fit: contain;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* Bloque de puntuación */
+
+.scores-total {
+    width: 456px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+/* Imagen de fondo + número */
+
+.score-block {
+    width: 228px;
+    height: 92px;
+
+    background-image: url("../assets/img/puntuacionesbloc.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Número dinámico */
+
+.score-value {
+    font-family: "Germania One", serif;
+
+    font-size: 48px;
+    font-weight: 400;
+
+    color: #DEDEDE;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Texto inferior */
+
+.scores-accumulated-image {
+    display: block;
+
+    width: 456px;
+    height: 41px;
+
+    object-fit: contain;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+.options-content.options-content-hidden {
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transform: translateX(-70px);
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease,
+        visibility 0s linear 0.4s;
+}
+
+
+
+/* PANEL INTERNO DE PERFIL */
+
+.profile-content {
+    position: absolute;
+
+    z-index: 1;
+
+    width: 502px;
+
+    top: 77px;
+    left: 199px;
+
+
+    /* Oculto inicialmente */
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+
+    /* Empieza desplazado hacia la derecha */
+
+    transform: translateX(70px);
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease,
+        visibility 0s linear 0.4s;
+}
+
+
+.profile-content.profile-content-open {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transform: translateX(0);
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease,
+        visibility 0s linear 0s;
+}
+
+
+/* FORMULARIO */
+
+.profile-form {
+    width: 502px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 36px;
+}
+
+
+/* CONTENEDOR DE CAMPOS */
+
+.profile-fields {
+    width: 502px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+/* FILAS */
+
+.profile-row {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+/* CAMPOS */
+
+.profile-field {
+    width: 395px;
+    height: 100px;
+
+    padding: 0 20px;
+
+    border: none;
+    outline: none;
+
+    background-image: url("../assets/img/perfilcampo.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+
+    font-family: "Germania One", serif;
+    font-size: 32px;
+    font-weight: 400;
+
+    text-align: center;
+
+    color: #000000;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Evita apariencia gris de readonly */
+
+.profile-field:read-only {
+    cursor: default;
+}
+
+
+/* CAMPO CONFIRMAR CONTRASEÑA */
+
+/* Oculto cuando NO estamos editando */
+
+.profile-confirm-password {
+    display: none;
+}
+
+
+/* Aparece al editar */
+
+.profile-content.profile-editing
+.profile-confirm-password {
+    display: block;
+}
+
+/* EDITAR PERFIL */
+
+.profile-edit-actions {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+.profile-main-button {
+    width: 314px;
+    height: 92px;
+
+    border: none;
+    outline: none;
+
+    background-image: url("../assets/img/editarperfilbloc.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+
+    font-family: "Germania One", serif;
+    font-size: 48px;
+
+    color: #DEDEDE;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease;
+}
+
+
+.profile-main-button:hover {
+    transform: scale(1.05);
+}
+
+
+.profile-main-button:active {
+    transform: scale(0.97);
+}
+
+/* CONFIRMAR / CANCELAR */
+
+.profile-save-actions {
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 36px;
+}
+
+
+/* En modo edición aparecen */
+
+.profile-content.profile-editing
+.profile-save-actions {
+    display: flex;
+}
+
+
+/* En modo edición desaparece Editar perfil */
+
+.profile-content.profile-editing
+.profile-edit-actions {
+    display: none;
+}
+
+
+.profile-action-button {
+    width: 235px;
+    height: 92px;
+
+    border: none;
+    outline: none;
+
+    background-image: url("../assets/img/editarperfilbloc.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+
+    font-family: "Germania One", serif;
+    font-size: 40px;
+
+    color: #DEDEDE;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease;
+}
+
+
+.profile-action-button:hover {
+    transform: scale(1.05);
+}
+
+
+.profile-action-button:active {
+    transform: scale(0.97);
+}
+
+/* CONTENIDO INTERNO DEL PANEL DE SERVIDOR */
+
+.server-menu {
+    position: absolute;
+}
+
+
+/* Fondo detrás */
+
+.server-panel-image {
+    position: relative;
+
+    z-index: 0;
+}
+
+
+/* Contenido encima del panel */
+
+.server-content {
+    position: absolute;
+
+    z-index: 1;
+
+    width: 760px;
+    height: 500px;
+
+    top: 70px;
+    left: 70px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+/* USUARIO */
+
+.server-user {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 22px;
+}
+
+
+.server-user-icon {
+    display: block;
+
+    width: 59px;
+    height: 57px;
+
+    object-fit: contain;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+.server-username {
+    font-family: "Germania One", serif;
+
+    font-size: 40px;
+    font-weight: 400;
+
+    color: #DEDEDE;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    white-space: nowrap;
+}
+
+/* para los futuros jugadores en el server */
+.server-players {
+    width: 100%;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    margin-top: 30px;
+}
+
+.server-start-button {
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+
+.server-start-button img {
+    display: block;
+
+    width: 246px;
+    height: auto;
+
+    user-select: none;
+
+    transition: transform 0.15s ease;
+}
+
+
+.server-start-button:hover img {
+    transform: scale(1.05);
+}
+
+
+.server-start-button:active img {
+    transform: scale(0.97);
+}

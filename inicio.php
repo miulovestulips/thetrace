@@ -1,0 +1,554 @@
+<?php
+
+require_once(__DIR__ . "/php/session.php");
+require_once(__DIR__ . "/php/conexion.php");
+
+
+// impide almacenar página protegida en caché
+header(
+    "Cache-Control: no-store, no-cache, must-revalidate, max-age=0"
+);
+
+header("Pragma: no-cache");
+
+
+// si no existe una sesión iniciada regresa al usuario al login
+if (!isset($_SESSION["id_usuario"])) {
+
+    header("Location: index.html");
+
+    exit;
+}
+
+// obtener datos reales del usuario
+$conn = conexion();
+
+$stmt = $conn->prepare(
+    "SELECT nombre_usuario, correo
+     FROM usuarios
+     WHERE id_usuario = ?"
+);
+
+$stmt->bind_param(
+    "i",
+    $_SESSION["id_usuario"]
+);
+
+$stmt->execute();
+
+$resultado = $stmt->get_result();
+
+$usuario = $resultado->fetch_assoc();
+
+$stmt->close();
+$conn->close();
+
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>THE TRACE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="css/fireflies.css">
+</head>
+
+<body class="loading"> // muestra inmediatamente pantalla de carga
+
+    <!-- foto fondo -->
+    <div class="menu-background"></div>
+
+    <!-- contenedor luciérnagas -->
+    <div id="fireflies-container"></div>
+
+    <!-- Menú principal -->
+    <main id="main-menu">
+
+        <div class="menu-container">
+
+            <!-- Logo / título -->
+            <img
+                class="menu-title"
+                src="assets/img/indextitle.png"
+                alt="The Trace"
+            >
+
+            <!-- Botones -->
+            <div class="menu-buttons">
+
+                <!-- Iniciar juego, abre primero seccion de dificultad difficultyMenu.js -->
+                <button
+                    id="start-game-button"
+                    class="menu-button ui-sound"
+                    type="button"
+                >
+                    <img
+                        src="assets/img/iniciarjuego.png"
+                        alt="Iniciar juego"
+                    >
+                </button>
+
+                <!-- Opciones, controlado por optionsMenu.js -->
+                <button
+                    id="options-button"
+                    class="menu-button ui-sound"
+                    type="button"
+                >
+                    <img
+                        src="assets/img/opciones.png"
+                        alt="Opciones"
+                    >
+                </button>
+
+                <!-- Salir, manejado por logout.js -->
+                <button
+                    id="exit-button"
+                    class="menu-button ui-sound"
+                    type="button"
+                >
+                    <img
+                        src="assets/img/salir.png"
+                        alt="Salir"
+                    >
+                </button>
+
+            </div>
+
+
+            <!-- Submenú de dificultad -->
+            <div id="difficulty-menu" class="difficulty-menu">
+
+                <img
+                    class="difficulty-title"
+                    src="assets/img/escogemodo.png"
+                    alt="Escoge un modo de juego"
+                >
+
+                <div class="difficulty-buttons">
+
+                    <button
+                        id="normal-button"
+                        class="difficulty-button ui-sound"
+                        type="button"
+                    >
+                        <img
+                            src="assets/img/normal.png"
+                            alt="Normal"
+                        >
+                    </button>
+
+                    <button
+                        id="hard-button"
+                        class="difficulty-button ui-sound"
+                        type="button"
+                    >
+                        <img
+                            src="assets/img/dificil.png"
+                            alt="Difícil"
+                        >
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Panel de búsqueda de servidor -->
+            <div id="server-menu" class="server-menu">
+
+                <!-- Fondo del panel -->
+                <img
+                    class="server-panel-image"
+                    src="assets/img/servidorejemplo.png"
+                    alt="Panel de servidor"
+                >
+
+
+                <!-- Contenido del servidor -->
+                <div class="server-content">
+
+                    <!-- Usuario actual -->
+                    <div class="server-user">
+
+                        <img
+                            class="server-user-icon"
+                            src="assets/img/iconserver.png"
+                            alt=""
+                        >
+
+                        <span
+                            id="server-username"
+                            class="server-username"
+                        >
+                            <?= htmlspecialchars($usuario["nombre_usuario"]) ?>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Espacio para futuros jugadores conectados , vacio por el momento-->
+                    <div
+                        id="server-players"
+                        class="server-players"
+                    >
+                    </div>
+
+
+                    <!-- Comenzar juego que nos lleva a juego.html -->
+                    <button
+                        id="begin-game-button"
+                        class="server-start-button ui-sound"
+                        type="button"
+                    >
+
+                        <img
+                            src="assets/img/comenzarjuego.png"
+                            alt="Comenzar juego"
+                        >
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Panel de opciones -->
+            <div id="options-menu" class="options-menu">
+
+                <!-- Fondo del panel -->
+                <img
+                    class="options-panel-image"
+                    src="assets/img/opcionespanelejemplo.png"
+                    alt="Panel de opciones"
+                >
+
+                <!-- Contenido del panel -->
+                <div class="options-content">
+
+                    <!-- SECCION DE VOLUMEN, manejado por volumesettings.js -->
+                    <div class="options-volume-container">
+
+                        <!-- Volumen de juego -->
+                        <div class="option-volume-block">
+
+                            <img
+                                class="option-title-image"
+                                src="assets/img/volumenjuego.png"
+                                alt="Volumen de juego"
+                            >
+
+                            <div class="option-volume-row">
+
+                                <!-- modifica el volumen desde el icon -->
+                                <button
+                                    id="game-volume-button"
+                                    class="volume-icon-button"
+                                    type="button"
+                                    aria-label="Cambiar volumen de juego"
+                                >
+
+                                    <img
+                                        id="game-volume-icon"
+                                        class="option-icon"
+                                        src="assets/img/novolumenjuegoicono.png"
+                                        alt=""
+                                    >
+
+                                </button>
+
+                                <!-- estado de la barra de volumen -->
+                                <img
+                                    id="game-volume-bar" 
+                                    class="option-slider-image"
+                                    src="assets/img/volumen0.png"
+                                    alt=""
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Volumen de música -->
+                        <div class="option-volume-block">
+
+                            <img
+                                class="option-title-image"
+                                src="assets/img/volumenmusica.png"
+                                alt="Volumen de música"
+                            >
+
+                            <div class="option-volume-row">
+
+                                <button
+                                    id="music-volume-button"
+                                    class="volume-icon-button"
+                                    type="button"
+                                    aria-label="Cambiar volumen de música"
+                                >
+
+                                    <img
+                                        id="music-volume-icon"
+                                        class="option-icon"
+                                        src="assets/img/volumenjuegoicono.png"
+                                        alt=""
+                                    >
+
+                                </button>
+
+                                <img
+                                    id="music-volume-bar"
+                                    class="option-slider-image"
+                                    src="assets/img/volumen5.png"
+                                    alt=""
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Puntuaciones y perfil -->
+                    <div class="options-links-container">
+
+                        <!-- Puntuaciones -->
+                        <button
+                            id="scores-button"
+                            class="option-link-button ui-sound"
+                            type="button"
+                        >
+
+                            <img
+                                class="option-link-icon"
+                                src="assets/img/estrella.png"
+                                alt=""
+                            >
+
+                            <img
+                                class="option-link-text"
+                                src="assets/img/Puntuaciones.png"
+                                alt="Puntuaciones"
+                            >
+
+                        </button>
+
+
+                        <!-- Perfil, controlado por profilePanel.js -->
+                        <button
+                            id="profile-button"
+                            class="option-link-button ui-sound"
+                            type="button"
+                        >
+
+                            <img
+                                class="option-link-icon"
+                                src="assets/img/perfilicono.png"
+                                alt=""
+                            >
+
+                            <img
+                                class="option-link-text"
+                                src="assets/img/perfil.png"
+                                alt="Perfil de usuario"
+                            >
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Contenido de puntuaciones -->
+                <div id="scores-content" class="scores-content">
+
+                    <!-- Bienvenida -->
+                    <img
+                        class="scores-welcome-image"
+                        src="assets/img/bienvenidopuntuacionestext.png"
+                        alt="Bienvenido al panel de puntuaciones"
+                    >
+
+                    <!-- Puntuación acumulada -->
+                    <div class="scores-total">
+
+                        <div class="score-block">
+
+                            <span id="score-value" class="score-value">
+                                0
+                            </span>
+
+                        </div>
+
+                        <img
+                            class="scores-accumulated-image"
+                            src="assets/img/acumuladostext.png"
+                            alt="Puntos acumulados en tus partidas"
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Contenido de perfil -->
+                <div id="profile-content" class="profile-content">
+
+                    <form id="profile-form" class="profile-form">
+
+                        <!-- Campos -->
+                        <div class="profile-fields">
+
+                            <!-- Primera fila -->
+                            <div class="profile-row">
+
+                                <!-- Usuario -->
+                                <input
+                                    id="profile-username"
+                                    class="profile-field"
+                                    type="text"
+                                    value="<?= htmlspecialchars($usuario["nombre_usuario"]) ?>"
+                                    readonly
+                                    autocomplete="username"
+                                >
+
+                                <!-- Correo -->
+                                <input
+                                    id="profile-email"
+                                    class="profile-field"
+                                    type="email"
+                                    value="<?= htmlspecialchars($usuario["correo"]) ?>"
+                                    readonly
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+
+                            <!-- Segunda fila -->
+                            <div class="profile-row profile-password-row">
+
+                                <!-- Contraseña -->
+                                <input
+                                    id="profile-password"
+                                    class="profile-field"
+                                    type="text"
+                                    value="••••••••"
+                                    readonly
+                                    autocomplete="off"
+                                >
+
+                                <!-- Confirmar contraseña -->
+                                <input
+                                    id="profile-confirm-password"
+                                    class="profile-field profile-confirm-password"
+                                    type="password"
+                                    placeholder="Confirmar contraseña"
+                                    autocomplete="new-password"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Editar perfil -->
+                        <div
+                            id="profile-edit-actions"
+                            class="profile-edit-actions"
+                        >
+
+                            <button
+                                id="edit-profile-button"
+                                class="profile-main-button ui-sound"
+                                type="button"
+                            >
+                                Editar perfil
+                            </button>
+
+                        </div>
+
+
+                        <!-- Confirmar / Cancelar -->
+                        <div
+                            id="profile-save-actions"
+                            class="profile-save-actions"
+                        >
+
+                            <button
+                                id="confirm-profile-button"
+                                class="profile-action-button ui-sound"
+                                type="submit"
+                            >
+                                Confirmar
+                            </button>
+
+                            <button
+                                id="cancel-profile-button"
+                                class="profile-action-button ui-sound"
+                                type="button"
+                            >
+                                Cancelar
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Pantalla de carga -->
+    <div id="loading-screen">
+
+        <div class="loading-content">
+
+            <img
+                class="loading-text"
+                src="assets/img/Cargando.png"
+                alt="Cargando"
+            >
+
+            <div class="loading-dots">
+                <img src="assets/img/dot.png" alt="">
+                <img src="assets/img/dot.png" alt="">
+                <img src="assets/img/dot.png" alt="">
+            </div>
+
+        </div>
+
+    </div>
+
+<script type="module" src="./js/effects/fireflies.js"></script>
+<script type="module" src="./js/ui/loading.js"></script>
+<script type="module" src="./js/ui/uiSounds.js"></script>
+<script type="module" src="./js/ui/navigation.js"></script>
+<script type="module" src="./js/ui/difficultyMenu.js"></script>
+<script type="module" src="./js/ui/optionsMenu.js"></script>
+<script type="module" src="./js/ui/volumeSettings.js"></script>
+<script type="module" src="./js/ui/scoresPanel.js"></script>
+<script type="module" src="./js/ui/profilePanel.js"></script>
+<script type="module" src="./js/auth/logout.js"></script>
+
+</body>
+
+</html>

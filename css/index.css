@@ -1,0 +1,660 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    --firefly-color: #FFA600;
+    --firefly-glow-medium: rgba(255, 166, 0, 0.7);
+    --firefly-glow-soft: rgba(255, 166, 0, 0.4);
+}
+
+/* Fondo */
+body::before {
+    content: "";
+
+    position: fixed;
+
+    top: -10px;
+    left: -10px;
+
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+
+    background-image: url("../assets/img/indexlogo.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(5.8px);
+
+    z-index: -1;
+}
+
+.contenido {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.menu-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: clamp(90px, 7vh, 110px);
+
+    transform: translateY(-60px);
+}
+
+.game-title {
+    width: min(924px, 90vw);
+    aspect-ratio: 924 / 304;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.game-title h1 {
+    margin: 0;
+
+    color: #FFA600;
+
+    font-family: "Irish Grover", cursive;
+    font-size: clamp(60px, 8vw, 130px);
+    font-weight: 400;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.start-button {
+    width: min(473px, 70vw);
+    aspect-ratio: 473 / 183;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border: none;
+    outline: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.start-button:active {
+    transform: scale(0.97);
+}
+
+.credits {
+    position: absolute;
+    bottom: 30px;
+
+    color: rgba(255, 255, 255, 0.76);
+
+    font-family: "Irish Grover", cursive;
+    font-size: clamp(20px, 2.2vw, 36px);
+    font-weight: 400;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.screen {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition:
+        transform 0.7s ease,
+        opacity 0.5s ease;
+}
+
+#login-screen {
+    transform: translateX(100%);
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+#home-screen {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+#home-screen.slide-out {
+    transform: translateX(-100%);
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+#login-screen.slide-in {
+    transform: translateX(0);
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+/* DISEÑO LOGIN */
+
+.login-container {
+    width: min(719px, 90vw);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: -70px;
+
+    gap: 0;
+
+    border: none;
+}
+
+.login-card {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 719 / 688;
+}
+
+.login-panel {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 77.6%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding:
+        clamp(35px, 5vw, 70px)
+        clamp(30px, 6vw, 71px);
+
+    background-image: url("../assets/img/logincard.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-header {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 85%;
+    aspect-ratio: 611 / 220;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: drop-shadow(0 9px 4px rgba(0, 0, 0, 0.25));
+
+    z-index: 2;
+}
+
+.login-fields {
+    width: min(417px, 80%);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.form-group {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.form-group input {
+    width: min(385px, 100%);
+    height: clamp(60px, 7vw, 85px);
+
+    padding: 0 30px;
+
+    background-color: transparent;
+    background-image: url("../assets/img/loginInput.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border: none;
+    outline: none;
+
+    color: #000;
+
+    font-family: "Germania One", serif;
+    font-size: clamp(24px, 2.5vw, 36px);
+
+    text-align: center;
+}
+
+.register-message {
+    margin-top: 31px;
+
+    color: #FFFBFB;
+
+    font-family: "Irish Grover", cursive;
+    font-size: clamp(20px, 2vw, 22px);
+    font-weight: 400;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.register-link {
+    padding: 0;
+
+    background: none;
+    border: none;
+
+    color: inherit;
+
+    font: inherit;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    text-shadow: inherit;
+}
+
+.register-link:hover {
+    color: #FFA600;
+}
+
+.login-button {
+    width: min(322px, 60vw);
+    aspect-ratio: 322 / 110;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: -50px;
+
+    background-color: transparent;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border: none;
+
+    cursor: pointer;
+
+    filter: drop-shadow(0 9px 4px rgba(0, 0, 0, 0.25));
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+
+.login-button:hover {
+    transform: scale(1.05);
+
+    filter:
+        drop-shadow(0 9px 4px rgba(0, 0, 0, 0.25))
+        brightness(1.08);
+}
+
+.login-button:active {
+    transform: scale(0.97);
+}
+
+/* PANTALLA REGISTRO */
+
+#register-screen {
+    transform: translateX(100%);
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* Login sale hacia la izquierda
+   cuando entramos al registro */
+
+#login-screen.slide-to-register {
+    transform: translateX(-100%);
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* Registro entra desde la derecha */
+
+#register-screen.slide-in {
+    transform: translateX(0);
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.register-container {
+    width: min(870px, 92vw);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: -60px;
+
+    border: none;
+}
+
+.register-card {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 870 / 666;
+}
+
+.register-panel {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 80.2%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding:
+        clamp(40px, 5vw, 83px)
+        clamp(30px, 5vw, 67px);
+
+    background-image: url("../assets/img/registrocard.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.register-header {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 63.5%;
+    aspect-ratio: 552 / 180;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2;
+}
+
+.register-header-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: contain;
+}
+
+.register-fields {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 35px;
+}
+
+.register-column {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 26px;
+}
+
+.register-form-group {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.register-form-group label {
+    width: 100%;
+    height: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-field-label {
+    max-width: 100%;
+    max-height: 48px;
+
+    display: block;
+    object-fit: contain;
+}
+
+.register-form-group input {
+    width: min(302px, 100%);
+    aspect-ratio: 302 / 66;
+
+    padding: 0 22px;
+
+    background-color: transparent;
+    background-image: url("../assets/img/registroinput.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border: none;
+    outline: none;
+
+    color: #000;
+
+    font-family: "Germania One", serif;
+    font-size: clamp(18px, 2vw, 28px);
+
+    text-align: center;
+}
+
+.login-message {
+    margin-top: 60px;
+
+    color: #FFFBFB;
+
+    font-family: "Irish Grover", cursive;
+    font-size: clamp(20px, 2vw, 32px);
+    font-weight: 400;
+
+    text-align: center;
+
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.login-link {
+    padding: 0;
+
+    background: none;
+    border: none;
+
+    color: inherit;
+    font: inherit;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    text-shadow: inherit;
+}
+
+.login-link:hover {
+    color: #FFA600;
+}
+
+.register-button {
+    position: relative;
+    z-index: 3;
+
+    width: min(296px, 60vw);
+    aspect-ratio: 296 / 110;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: -20px;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+
+.register-button-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: contain;
+}
+
+.register-button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.08);
+}
+
+.register-button:active {
+    transform: scale(0.97);
+}
+
+/* BOTON API FACEBOOK IMPLEMENTADO */
+.facebook-login-button {
+    width: 210px;
+    height: 58px;
+
+    padding: 0;
+    margin-top: 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+    background: transparent;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.4);
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.facebook-login-button img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+}
+
+
+.facebook-login-button:hover {
+    transform: scale(1.05);
+
+    filter: brightness(1.1);
+}
+
+
+.facebook-login-button:active {
+    transform: scale(0.97);
+}

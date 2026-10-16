@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>THE TRACE - Juego</title>
+
+    <link rel="stylesheet" href="css/juego.css">
+
+
+    <!-- Three.js -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+        }
+    }
+    </script>
+
+</head>
+
+<body>
+
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Menú de pausa -->
+    <div
+        id="pause-menu"
+        class="pause-menu"
+        aria-hidden="true"
+    >
+
+        <!-- Vista principal de pausa -->
+        <div
+            id="pause-main"
+            class="pause-main"
+        >
+
+            <!-- Título -->
+            <img
+                class="pause-title"
+                src="assets/img/indextitle.png"
+                alt="The Trace"
+            >
+
+
+            <!-- Botones -->
+            <div class="pause-buttons">
+
+                <!-- Opciones -->
+                <button
+                    id="pause-options-button"
+                    class="pause-button ui-sound"
+                    type="button"
+                >
+
+                    <img
+                        src="assets/img/opciones.png"
+                        alt="Opciones"
+                    >
+
+                </button>
+
+
+                <!-- Salir -->
+                <button
+                    id="pause-exit-button"
+                    class="pause-button ui-sound"
+                    type="button"
+                >
+
+                    <img
+                        src="assets/img/salir.png"
+                        alt="Salir"
+                    >
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Opciones dentro de pausa -->
+        <div
+            id="pause-options"
+            class="pause-options"
+        >
+
+            <!-- Fondo del panel -->
+            <img
+                class="pause-options-panel-image"
+                src="assets/img/opcionespanelejemplo.png"
+                alt="Panel de opciones"
+            >
+
+
+            <!-- Volúmenes -->
+            <div class="pause-options-content">
+
+                <div class="pause-volume-container">
+
+
+                    <!-- VOLUMEN DE JUEGO -->
+
+                    <div class="pause-volume-block">
+
+                        <img
+                            class="pause-volume-title"
+                            src="assets/img/volumenjuego.png"
+                            alt="Volumen de juego"
+                        >
+
+                        <div class="pause-volume-row">
+
+                            <button
+                                id="pause-game-volume-button"
+                                class="pause-volume-button ui-sound"
+                                type="button"
+                                aria-label="Cambiar volumen de juego"
+                            >
+
+                                <img
+                                    id="pause-game-volume-icon"
+                                    class="pause-volume-icon"
+                                    src="assets/img/volumenjuegoicono.png"
+                                    alt=""
+                                >
+
+                            </button>
+
+                            <img
+                                id="pause-game-volume-bar"
+                                class="pause-volume-bar"
+                                src="assets/img/volumen5.png"
+                                alt=""
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- VOLUMEN DE MÚSICA -->
+
+                    <div class="pause-volume-block">
+
+                        <img
+                            class="pause-volume-title"
+                            src="assets/img/volumenmusica.png"
+                            alt="Volumen de música"
+                        >
+
+                        <div class="pause-volume-row">
+
+                            <button
+                                id="pause-music-volume-button"
+                                class="pause-volume-button ui-sound"
+                                type="button"
+                                aria-label="Cambiar volumen de música"
+                            >
+
+                                <img
+                                    id="pause-music-volume-icon"
+                                    class="pause-volume-icon"
+                                    src="assets/img/volumenjuegoicono.png"
+                                    alt=""
+                                >
+
+                            </button>
+
+                            <img
+                                id="pause-music-volume-bar"
+                                class="pause-volume-bar"
+                                src="assets/img/volumen5.png"
+                                alt=""
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Volver al menú de pausa -->
+                <button
+                    id="pause-back-button"
+                    class="pause-back-button ui-sound"
+                    type="button"
+                >
+                    <img
+                        src="assets/img/volver.png"
+                        alt="Volver"
+                    >
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script
+    type="module"
+    src="./js/game/game.js"
+></script>
+
+<script
+    type="module"
+    src="./js/ui/pauseMenu.js"
+></script>
+
+<script
+    type="module"
+    src="./js/ui/pauseVolumeSettings.js"
+></script>
+
+<script
+    type="module"
+    src="./js/ui/uiSounds.js"
+></script>
+
+</body>
+
+</html>

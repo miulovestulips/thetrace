@@ -1,0 +1,337 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>THE TRACE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Germania+One&family=Irish+Grover&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="css/fireflies.css">
+
+</head>
+
+<body>
+
+    <!-- contenedor de efecto visual de luciernagas, fireflies.js + fireflies.css genera el efecto -->
+    <div id="fireflies-container"></div>
+
+    <main class="contenido">
+
+        <!-- Pantalla 1. inicial || screen-active indica que es la pantalla inicial -->
+        <section id="home-screen" class="screen screen-active">
+
+            <div class="menu-principal">
+
+                <!-- logo titulo -->
+                <div class="game-title">
+                    <img
+                        src="./assets/img/indextitle.png"
+                        alt=""
+                    >
+                </div>
+
+                <!-- boton que lleva a login, ui-sound siendo identificador para los botones con volumen -->
+                <button type="button" class="start-button ui-sound">
+                    <img
+                        src="./assets/img/comenzar.png"
+                        alt=""
+                    >
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Pantalla 2. de login, inicialmente oculta -->
+        <section id="login-screen" class="screen">
+
+            <form id="login-form" class="login-container">
+
+                <div class="login-card">
+
+                    <div class="login-panel">
+
+                        <div class="login-fields">
+
+                            <div class="form-group">
+                                <label for="username">
+                                    <img
+                                        src="./assets/img/loginusuario.png"
+                                        alt="Usuario"
+                                        class="login-field-label"
+                                    >
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    autocomplete="username"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">
+                                    <img
+                                        src="./assets/img/logincontraseña.png"
+                                        alt="Contraseña"
+                                        class="login-field-label"
+                                    >
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+                            </div>
+
+                        </div>
+
+                        <p class="register-message">
+                            ¿No tienes una cuenta?
+
+                            <!-- data click sound siendo un sonido especifico -->
+                            <button
+                                type="button"
+                                class="register-link ui-sound"
+                                data-click-sound="./assets/sounds/cambiodepantalla.mp3"
+                            >
+                                Regístrate aquí
+                            </button>
+                        </p>
+
+                    </div>
+
+
+                    <div class="login-header">
+                        <img
+                            src="./assets/img/holadenuevo.png"
+                            alt="¡Hola de nuevo!"
+                            class="login-header-text"
+                        >
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button ui-sound"
+                    aria-label="Iniciar sesión"
+                >
+                    <img
+                        src="./assets/img/iniciarsesion.png"
+                        alt=""
+                        class="login-button-text"
+                    >
+                </button>
+
+                <!-- BOTON API FACEBOOK IMPLEMENTADO -->
+                <button
+                    type="button"
+                    id="facebook-login-button"
+                    class="facebook-login-button ui-sound"
+                    aria-label="Iniciar sesión con Facebook"
+                >
+                    <img
+                        src="./assets/img/facebook.jpg"
+                        alt="Iniciar sesión con Facebook"
+                    >
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- Pantalla 3. de registro -->
+        <section id="register-screen" class="screen">
+
+            <form id="register-form" class="register-container">
+
+                <div class="register-card">
+
+                    <!-- Panel principal -->
+                    <div class="register-panel">
+
+                        <div class="register-fields">
+
+                            <!-- Columna izquierda -->
+                            <div class="register-column">
+
+                                <div class="register-form-group">
+
+                                    <label for="register-email">
+                                        <img
+                                            src="./assets/img/registrocorreo.png"
+                                            alt="Correo"
+                                            class="register-field-label"
+                                        >
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="register-email"
+                                        name="email"
+                                        autocomplete="email"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="register-form-group">
+
+                                    <label for="register-username">
+                                        <img
+                                            src="./assets/img/registrousuario.png"
+                                            alt="Usuario"
+                                            class="register-field-label"
+                                        >
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="register-username"
+                                        name="username"
+                                        autocomplete="username"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Columna derecha -->
+                            <div class="register-column">
+
+                                <div class="register-form-group">
+
+                                    <label for="register-password">
+                                        <img
+                                            src="./assets/img/registrocontraseña.png"
+                                            alt="Contraseña"
+                                            class="register-field-label"
+                                        >
+                                    </label>
+
+                                    <input
+                                        type="password"
+                                        id="register-password"
+                                        name="password"
+                                        autocomplete="new-password"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="register-form-group">
+
+                                    <label for="register-confirm-password">
+                                        <img
+                                            src="./assets/img/registroconfirmarcontraseña.png"
+                                            alt="Confirmar contraseña"
+                                            class="register-field-label"
+                                        >
+                                    </label>
+
+                                    <input
+                                        type="password"
+                                        id="register-confirm-password"
+                                        name="confirmPassword"
+                                        autocomplete="new-password"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <p class="login-message">
+                            ¿Ya tienes una cuenta?
+
+                            <button
+                                type="button"
+                                class="login-link ui-sound"
+                                data-click-sound="./assets/sounds/cambiodepantalla.mp3"
+                            >
+                                Inicia sesión aquí
+                            </button>
+                        </p>
+
+                    </div>
+
+
+                    <!-- Encabezado -->
+                    <div class="register-header">
+
+                        <img
+                            src="./assets/img/bienvenidoa.png"
+                            alt="¡Bienvenido/a!"
+                            class="register-header-image"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Botón registrarse -->
+                <button
+                    type="submit"
+                    class="register-button ui-sound"
+                    aria-label="Registrarse"
+                >
+
+                    <img
+                        src="./assets/img/registrarse.png"
+                        alt=""
+                        class="register-button-image"
+                    >
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <p class="credits">
+            Desarrollado por estudiantes LMAD
+        </p>
+
+    </main>
+
+    <!-- efectos visuales de las luciernagas -->
+    <script type="module" src="./js/effects/fireflies.js"></script>
+    <!-- sonidos de botones / interaccion -->
+    <script type="module" src="./js/ui/uiSounds.js"></script>
+    <!-- cambio entre pantallas -->
+    <script type="module" src="./js/ui/navigation.js"></script>
+    <!-- pantalla/proceso de carga -->
+    <script type="module" src="js/ui/loading.js" defer></script>
+    <!-- registro -->
+    <script type="module" src="./js/auth/register.js"></script>
+    <!-- login -->
+    <script type="module" src="./js/auth/login.js"></script>
+    <!-- login con Facebook API FACEBOOK IMPLEMENTADO -->
+    <script type="module" src="./js/auth/facebookLogin.js"></script>
+
+</body>
+</html>
