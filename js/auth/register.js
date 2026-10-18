@@ -64,12 +64,45 @@ registerForm.addEventListener("submit", async (event) => {
         );
 
 
-        // convierte la respuesta de PHP a un objeto JS
-        const data = await response.json();
+        // lee la respuesta como texto (para ver qué devuelve de verdad)
+        const texto = await response.text();
+
+
+        // si NO es 200, muestra qué devolvió el servidor
+        if (!response.ok) {
+
+            console.error(
+                "HTTP", response.status,
+                "Respuesta:", texto.slice(0, 500)
+            );
+
+            alert("Error del servidor: " + response.status);
+
+            return;
+        }
+
+
+        // intenta parsear como JSON
+        let data;
+
+        try {
+            data = JSON.parse(texto);
+        }
+        catch (e) {
+
+            console.error(
+                "La respuesta no es JSON válido:",
+                texto.slice(0, 500)
+            );
+
+            alert("El servidor no devolvió JSON válido");
+
+            return;
+        }
 
 
         // registro rechazado por PHP
-        if (!response.ok || !data.ok) {
+        if (!data.ok) {
 
             alert(
                 data.mensaje ||
