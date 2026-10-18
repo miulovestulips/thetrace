@@ -65,9 +65,10 @@ $conn->close();
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/fireflies.css">
+    <link rel="stylesheet" href="css/serverPlayers.css">
 </head>
 
-<body class="loading"> // muestra inmediatamente pantalla de carga
+<body class="loading"> <!-- muestra inmediatamente pantalla de carga -->
 
     <!-- foto fondo -->
     <div class="menu-background"></div>
@@ -199,7 +200,21 @@ $conn->close();
                     </div>
 
 
-                    <!-- Espacio para futuros jugadores conectados , vacio por el momento-->
+                    <!-- Código de sala: quien escribe el mismo código juega en la misma partida -->
+                    <div class="server-room">
+                        <label for="server-room-code" class="server-room-label">Sala</label>
+                        <input
+                            id="server-room-code"
+                            class="server-room-input"
+                            type="text"
+                            maxlength="12"
+                            value="PUBLICA"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                    </div>
+
+                    <!-- Tabla de jugadores que están en la sala (la llena serverPlayers.js) -->
                     <div
                         id="server-players"
                         class="server-players"
@@ -543,6 +558,7 @@ $conn->close();
 <script type="module" src="./js/ui/uiSounds.js"></script>
 <script type="module" src="./js/ui/navigation.js"></script>
 <script type="module" src="./js/ui/difficultyMenu.js"></script>
+<script type="module" src="./js/ui/serverPlayers.js"></script>
 <script type="module" src="./js/ui/optionsMenu.js"></script>
 <script type="module" src="./js/ui/volumeSettings.js"></script>
 <script type="module" src="./js/ui/scoresPanel.js"></script>

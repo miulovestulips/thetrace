@@ -487,7 +487,12 @@ export function initMultiplayer({ scene: s, camera: c, cargarNivel }) {
     cargarNivelFn = cargarNivel;
 
     const params = new URLSearchParams(window.location.search);
-    const nombre = localStorage.getItem("thetrace-nombre") || `Jugador${Math.floor(Math.random() * 1000)}`;
+    // El menú puede estar en otro dominio, así que el nombre viaja por la URL (?nombre=...)
+    const nombre = (
+        params.get("nombre") ||
+        localStorage.getItem("thetrace-nombre") ||
+        `Jugador${Math.floor(Math.random() * 1000)}`
+    ).slice(0, 16);
     const codigo = params.get("sala") || localStorage.getItem("thetrace-sala") || "PUBLICA";
     const nivelInicial = Number(params.get("nivel")) || 1; // ?nivel=2 sirve para probar un escenario
 
@@ -496,7 +501,8 @@ export function initMultiplayer({ scene: s, camera: c, cargarNivel }) {
 
     // Producción: mismo origen que sirvió la página (undefined).
     // Desarrollo con Live Server u otro puerto: apunta al 3000.
-    const esDev = location.protocol === "http:" && location.port && location.port !== "3000";
+    const esLocal = /^(localhost|127\.|192\.168\.|10\.)/.test(location.hostname);
+    const esDev = esLocal && location.port !== "3000";
     socket = io(SERVIDOR_EXTERNO || (esDev ? `http://${location.hostname}:3000` : undefined));
 
     socket.on("connect", () => {

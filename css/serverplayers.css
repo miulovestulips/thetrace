@@ -1,0 +1,58 @@
+/* Código de sala y tabla de jugadores del panel "Servidor".
+   Solo da estilo a los elementos nuevos; la posición de #server-players sigue en inicio.css. */
+
+.server-room {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    color: #fff;
+    font-family: "Germania One", serif;
+}
+
+.server-room-label {
+    font-size: 1.1rem;
+}
+
+.server-room-input {
+    width: 9ch;
+    padding: 4px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font: inherit;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.server-players-title,
+.server-player-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 3px 0;
+    color: #fff;
+    font-family: "Germania One", serif;
+}
+
+.server-players-title {
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 1.05rem;
+}
+
+.server-player-state {
+    opacity: 0.8;
+}
+
+.server-player-down {
+    color: #ff7a6b;
+}
+
+.server-players-empty {
+    color: #fff;
+    font-family: "Germania One", serif;
+    font-style: italic;
+    opacity: 0.7;
+}

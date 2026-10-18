@@ -1,4 +1,5 @@
 import { navigateWithLoading } from "./loading.js"; // usa funcion en loading.js para que al cambiar pase primero por una pantalla de carga
+import { SERVIDOR_JUEGO, limpiarSala } from "../config.js";
 
 // busca los los botones que hacen navegar entre pantallas
 const startButton = document.querySelector(".start-button");
@@ -17,7 +18,7 @@ const registerScreen = document.getElementById("register-screen");
 
 // pregunta existencia de boton comenzar, pantalla inicial y login para continuar
 if (startButton && homeScreen && loginScreen) {
-    // al presionar comenzar ejecuta 
+    // al presionar comenzar ejecuta
     startButton.addEventListener("click", () => {
 
         // classList agrega animaciones css segun sea la que tenga
@@ -69,10 +70,25 @@ if (loginLink && loginScreen && registerScreen) {
 // pregunta existencia de boton comenzar juego
 if (beginGameButton) {
 
-    // cambia de html a otro
+    // cambia de html a otro, llevando el nombre del jugador y la sala elegida
     beginGameButton.addEventListener("click", () => {
 
-        navigateWithLoading("./juego.html");
+        const nombre = (document.getElementById("server-username")?.textContent || "").trim();
+        const sala = limpiarSala(document.getElementById("server-room-code")?.value);
+
+        try {
+            localStorage.setItem("thetrace-nombre", nombre);
+            localStorage.setItem("thetrace-sala", sala);
+        } catch {
+            // sin almacenamiento: igual viajan por la URL
+        }
+
+        // Si el juego lo sirve otro servidor (Render), se va a su dirección completa
+        const base = SERVIDOR_JUEGO ? `${SERVIDOR_JUEGO}/` : "./";
+
+        navigateWithLoading(
+            `${base}juego.html?sala=${encodeURIComponent(sala)}&nombre=${encodeURIComponent(nombre)}`
+        );
 
     });
 

@@ -26,8 +26,36 @@ const io = new Server(server, {
 app.use("/js", express.static(path.join(__dirname, "js")));
 app.use("/css", express.static(path.join(__dirname, "css")));
 app.use("/assets", express.static(path.join(__dirname, "assets")));
-app.get("/", (req, res) => res.redirect("/juego.html"));
+// El menú de inicio es la primera pantalla; el juego se abre desde el menú
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.get("/index.html", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
 app.get("/juego.html", (req, res) => res.sendFile(path.join(__dirname, "juego.html")));
+
+// Estado de UNA sala (tabla del menú). Hay que conocer el código: no se listan las demás salas.
+app.get("/api/sala/:codigo", (req, res) => {
+    const permitidos = process.env.ORIGENES ? process.env.ORIGENES.split(",") : null;
+    const origen = req.headers.origin;
+    if (!permitidos) {
+        res.set("Access-Control-Allow-Origin", "*");
+    } else if (origen && permitidos.includes(origen)) {
+        res.set("Access-Control-Allow-Origin", origen);
+        res.set("Vary", "Origin");
+    }
+    res.set("Cache-Control", "no-store");
+
+    const codigo = String(req.params.codigo || "PUBLICA").toUpperCase().slice(0, 12);
+    const p = partidas.get(codigo);
+    res.json({
+        codigo,
+        existe: !!p,
+        nivel: p ? p.nivel : null,
+        nombreNivel: p ? p.cfg.nombre : null,
+        max: MAX_JUGADORES,
+        jugadores: p
+            ? [...p.jugadores.values()].map((j) => ({ nombre: j.name, vida: j.hp, caido: j.caido }))
+            : [],
+    });
+});
 
 const partidas = new Map(); // codigo -> Partida
 
