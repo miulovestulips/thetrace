@@ -1,11 +1,12 @@
-# Usa la imagen oficial de PHP con Apache
 FROM php:8.2-apache
 
-# Copia todos los archivos de tu proyecto al directorio web de Apache
+# Copia los archivos al servidor
 COPY . /var/www/html/
 
-# (Opcional pero recomendado) Habilita el módulo de reescritura de Apache
-RUN a2enmod rewrite
+# Instala la extensión de MySQL para PHP (necesaria para conexion.php)
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Expone el puerto 80 (Render se encarga de mapearlo)
-EXPOSE 80
+# Render usa el puerto 10000, configuramos Apache para escuchar ahí
+RUN sed -i 's/80/10000/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+
+EXPOSE 10000
