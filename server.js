@@ -1,10 +1,12 @@
+require("dotenv").config(); 
+
 const express = require("express");
 const http = require("http");
 const path = require("path");
 
 const { Server } = require("socket.io");
 const NIVELES = require("./nivelesConfig");
-
+const { montarCuentas } = require("./auth");
 const PORT = process.env.PORT || 3000;
 const MAX_JUGADORES = 6;
 const TICK_MS = 50; // 20 ticks por segundo
@@ -21,7 +23,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: { origin: process.env.ORIGENES ? process.env.ORIGENES.split(",") : "*" },
 });
-
+montarCuentas(app);
 // Solo carpetas del cliente (NO la raíz: expondría server.js y package.json)
 app.use("/js", express.static(path.join(__dirname, "js")));
 app.use("/css", express.static(path.join(__dirname, "css")));
