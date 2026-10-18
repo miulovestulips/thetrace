@@ -55,12 +55,10 @@ registerForm.addEventListener("submit", async (event) => {
     try {
 
         // manda los datos a PHP
-        const response = await fetch(
-            "./php/registro.php",
-            {
-                method: "POST",
-                body: formData
-            }
+     const response = await fetch(
+    "/php/registro.php", // <- Quita el punto y pon una barra inclinada
+    { method: "POST", body: formData }
+
         );
 
 
