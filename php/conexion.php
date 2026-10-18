@@ -8,7 +8,7 @@ function conexion() {
     $pass = "PudinRosa127"; // Tu contraseña
 
     try {
-        $dsn = "pgsql:host=$host;port=$port;dbname=$db;";
+        $dsn = "postgresql://postgres:PudinRosa127@db.ijquelzgemtxxbpacuvg.supabase.co:5432/postgres";
         $conn = new PDO($dsn, $user, $pass);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
