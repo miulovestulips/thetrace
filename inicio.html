@@ -1,50 +1,3 @@
-<?php
-
-require_once(__DIR__ . "/php/session.php");
-require_once(__DIR__ . "/php/conexion.php");
-
-
-// impide almacenar página protegida en caché
-header(
-    "Cache-Control: no-store, no-cache, must-revalidate, max-age=0"
-);
-
-header("Pragma: no-cache");
-
-
-// si no existe una sesión iniciada regresa al usuario al login
-if (!isset($_SESSION["id_usuario"])) {
-
-    header("Location: index.html");
-
-    exit;
-}
-
-// obtener datos reales del usuario
-$conn = conexion();
-
-$stmt = $conn->prepare(
-    "SELECT nombre_usuario, correo
-     FROM usuarios
-     WHERE id_usuario = ?"
-);
-
-$stmt->bind_param(
-    "i",
-    $_SESSION["id_usuario"]
-);
-
-$stmt->execute();
-
-$resultado = $stmt->get_result();
-
-$usuario = $resultado->fetch_assoc();
-
-$stmt->close();
-$conn->close();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -194,7 +147,7 @@ $conn->close();
                             id="server-username"
                             class="server-username"
                         >
-                            <?= htmlspecialchars($usuario["nombre_usuario"]) ?>
+                            {{NOMBRE_USUARIO}}
                         </span>
 
                     </div>
@@ -436,7 +389,7 @@ $conn->close();
                                     id="profile-username"
                                     class="profile-field"
                                     type="text"
-                                    value="<?= htmlspecialchars($usuario["nombre_usuario"]) ?>"
+                                    value="{{NOMBRE_USUARIO}}"
                                     readonly
                                     autocomplete="username"
                                 >
@@ -446,7 +399,7 @@ $conn->close();
                                     id="profile-email"
                                     class="profile-field"
                                     type="email"
-                                    value="<?= htmlspecialchars($usuario["correo"]) ?>"
+                                    value="{{CORREO}}"
                                     readonly
                                     autocomplete="email"
                                 >
