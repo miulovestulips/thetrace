@@ -1,14 +1,14 @@
 <?php
 function conexion() {
-    // ⚠️ REEMPLAZA ESTOS DATOS CON LOS QUE TE DA SUPABASE (Direct Connection)
-    $host = "db.ijquelzgemtxxbpacuvg.supabase.co"; // Tu Host
-    $port = "5432"; // Usualmente es 5432 o 6543
-    $db   = "postgres"; 
-    $user = "postgres"; // Tu Usuario
-    $pass = "PudinRosa127"; // Tu contraseña
+    // Datos por defecto de XAMPP
+    $host = "localhost";
+    $port = "3306";
+    $name = "thetrace_db";
+    $user = "root";
+    $pass = ""; // En XAMPP la contraseña de root suele estar vacía
 
     try {
-        $dsn = "postgresql://postgres:PudinRosa127@db.ijquelzgemtxxbpacuvg.supabase.co:5432/postgres";
+        $dsn = "mysql:host=$host;port=$port;dbname=$name;charset=utf8mb4";
         $conn = new PDO($dsn, $user, $pass);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
